@@ -33,30 +33,26 @@ app.get("/url/emotion", (req,res) => {
     const analyzeParams = {
         'url': req.query.url,
         'features': {
-            'entities': {
-                'emotion': true,
-            }
+            'emotion': {},
         }
     }; 
     NLU.analyze(analyzeParams).then(analysisResults => {
-        return res.send(analysisResults);
+        return res.send(JSON.stringify(analysisResults.result.emotion.document.emotion, null, 2));
     }).catch(err => {
         return res.send(err);
     });
 });
 
 app.get("/url/sentiment", (req,res) => {
-        var NLU = getNLUInstance();
+    var NLU = getNLUInstance();
     const analyzeParams = {
-        'text': req.query.url,
+        'url': req.query.url,
         'features': {
-            'entities': {
-                'sentiment': true,
-            }
+            'sentiment': {},
         }
     }; 
     NLU.analyze(analyzeParams).then(analysisResults => {
-        return res.send(analysisResults);
+        return res.send(JSON.stringify(analysisResults.result.sentiment.document, null, 2));
     }).catch(err => {
         return res.send(err);
     });
@@ -67,13 +63,11 @@ app.get("/text/emotion", (req,res) => {
     const analyzeParams = {
         'text': req.query.text,
         'features': {
-            'entities': {
-                'emotion': true,
-            }
+            'emotion': {},
         }
     }; 
     NLU.analyze(analyzeParams).then(analysisResults => {
-        return res.send(JSON.stringify(analysisResults, null, 2));
+        return res.send(JSON.stringify(analysisResults.result.emotion.document.emotion, null, 2));
     }).catch(err => {
         return res.send(err);
     });
@@ -84,13 +78,11 @@ app.get("/text/sentiment", (req,res) => {
     const analyzeParams = {
         'text': req.query.text,
         'features': {
-            'entities': {
-                'sentiment': true,
-            }
+            'sentiment': {},
         }
     }; 
     NLU.analyze(analyzeParams).then(analysisResults => {
-        return res.send(analysisResults);
+        return res.send(JSON.stringify(analysisResults.result.sentiment.document, null, 2));
     }).catch(err => {
         return res.send(err);
     });
